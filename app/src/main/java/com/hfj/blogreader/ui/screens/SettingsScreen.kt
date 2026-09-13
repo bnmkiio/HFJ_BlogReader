@@ -12,6 +12,10 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hfj.blogreader.ui.theme.LocalFontScale
@@ -33,7 +37,7 @@ fun SettingsScreen(
                     Text(
                         "⚙️ الإعدادات",
                         fontSize = 21.sp * fontScale,
-                        fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+                        fontWeight = FontWeight.Bold
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -50,7 +54,7 @@ fun SettingsScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // ========== کارت آمار (بدون دکمه رفرش) ==========
+            // ========== کارت آمار ==========
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
@@ -61,14 +65,12 @@ fun SettingsScreen(
                     Text(
                         "📊 إحصائيات المدونة",
                         fontSize = 16.sp * fontScale,
-                        fontWeight = androidx.compose.ui.text.font.FontWeight.Medium
+                        fontWeight = FontWeight.Medium
                     )
                     Spacer(modifier = Modifier.height(8.dp))
 
                     StatRow("اليوم", stats.today, fontScale)
                     StatRow("الإجمالي", stats.total, fontScale)
-
-                    // ❌ دکمه "تحديث الإحصائيات" حذف شد
                 }
             }
 
@@ -85,7 +87,7 @@ fun SettingsScreen(
                     Text(
                         "🔤 حجم الخط",
                         fontSize = 16.sp * fontScale,
-                        fontWeight = androidx.compose.ui.text.font.FontWeight.Medium
+                        fontWeight = FontWeight.Medium
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -99,7 +101,7 @@ fun SettingsScreen(
                             "${(fontScale * 100).toInt()}%",
                             fontSize = 14.sp * fontScale,
                             color = MaterialTheme.colorScheme.primary,
-                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+                            fontWeight = FontWeight.Bold
                         )
                         Text("كبير", fontSize = 12.sp * fontScale)
                     }
@@ -161,7 +163,7 @@ fun SettingsScreen(
                 }
             }
 
-            // ========== کارت حول (به‌روزرسانی‌شده) ==========
+            // ========== کارت حول (با رنگ تم برنامه) ==========
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
@@ -174,19 +176,55 @@ fun SettingsScreen(
                     Text(
                         "📱 حول",
                         fontSize = 16.sp * fontScale,
-                        fontWeight = androidx.compose.ui.text.font.FontWeight.Medium
+                        fontWeight = FontWeight.Medium
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = """
-                            made by: mms.net. bnm. J
-                            telegram: mmsnetbnm
-                            telegram: mmsnetbnmbot
-
-                            مدونة حسين فاضل الجنامي
-
-                            1.0.0
-                        """.trimIndent(),
+                        text = buildAnnotatedString {
+                            // 1️⃣ خط اول - رنگ تم برنامه
+                            withStyle(SpanStyle(
+                                color = MaterialTheme.colorScheme.primary,
+                                fontWeight = FontWeight.Bold
+                            )) {
+                                append("MMS.NET BNM.J")
+                            }
+                            append("\n")
+                            append("Build • Network • Media\n")
+                            append("علامة رقمية في مجال التقنية، البرمجة، الإنترنت، الجرافيك والإعلام الرقمي.\n")
+                            append("نمزج بين الفن والتقنية لبناء برامج وحلول رقمية ومحتوى حديث.\n\n")
+                            append("© 2023   2026\n")
+                            append("جميع الحقوق محفوظة لـ\n")
+                            // 2️⃣ بعد از «جميع الحقوق» - رنگ تم برنامه
+                            withStyle(SpanStyle(
+                                color = MaterialTheme.colorScheme.primary,
+                                fontWeight = FontWeight.Bold
+                            )) {
+                                append("MMS.NET BNM.J")
+                            }
+                            append("\n")
+                            append("يُمنع نقل أو تقليد برامجنا وقوالبنا وأعمالنا، أو إعادة استخدامها دون إذن. كما يُمنع استخدام أفكارنا وطرق عملنا أو إعادة توظيفها دون إذن مسبق.\n")
+                            append("وتحتفظ ")
+                            // 3️⃣ داخل جمله - رنگ تم برنامه
+                            withStyle(SpanStyle(
+                                color = MaterialTheme.colorScheme.primary,
+                                fontWeight = FontWeight.Bold
+                            )) {
+                                append("MMS.NET BNM.J")
+                            }
+                            append(" بحقها في اتخاذ كافة الإجراءات القانونية بحق كل من يخالف هذه الحقوق.\n\n")
+                            append("made by: ")
+                            // 4️⃣ در «made by» - رنگ تم برنامه
+                            withStyle(SpanStyle(
+                                color = MaterialTheme.colorScheme.primary,
+                                fontWeight = FontWeight.Bold
+                            )) {
+                                append("MMS.NET BNM.J")
+                            }
+                            append("\ntelegram ch: MMSNETBNM\n")
+                            append("telegram: MMSNETBNMBOT\n\n")
+                            append("مدونة حسين فاضل الجنامي\n")
+                            append("1.0.0")
+                        },
                         fontSize = 13.sp * fontScale,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                         lineHeight = 20.sp
@@ -215,7 +253,7 @@ fun StatRow(label: String, value: String, fontScale: Float) {
         Text(
             text = value,
             fontSize = 14.sp * fontScale,
-            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+            fontWeight = FontWeight.Bold
         )
     }
 }
