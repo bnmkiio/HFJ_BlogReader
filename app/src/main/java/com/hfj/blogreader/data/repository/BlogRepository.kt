@@ -8,7 +8,7 @@ import org.jsoup.Jsoup
 
 class BlogRepository {
 
-    private val baseUrl = "https://hfgapi77777.blogfa.com"
+    private val baseUrl = "https://bllosoft-glade-6b08.bnmkiio180.workers.dev"
 
     suspend fun fetchAllPosts(): List<Post> = withContext(Dispatchers.IO) {
         val allPosts = mutableListOf<Post>()
